@@ -21,20 +21,19 @@ public class LogRepository {
     }
 
     // *로 하면 랜덤한 순서로 나옴
-    public List<LogResponse.DTO> findAllJoinStore() {
-        List<LogResponse.DTO> respDTOs = new ArrayList<>();
+    public List<LogResponse.ListPage> findAllJoinStore() {
+        List<LogResponse.ListPage> logList = new ArrayList<>();
         String q = "SELECT lt.id, st.name, lt.qty, lt.total_price, lt.buyer FROM log_tb lt INNER JOIN store_tb st ON lt.store_id = st.id";
         Query query = em.createNativeQuery(q);
         List<Object[]> obsList = (List<Object[]>) query.getResultList(); // Object[] -> ROW
 
+        // ObjectMapping OM
         for (Object[] obs : obsList) {
-            LogResponse.DTO respDTO = new LogResponse.DTO(
+            LogResponse.ListPage log = new LogResponse.ListPage(
                     (int) obs[0], (String) obs[1], (int) obs[2], (int) obs[3], (String) obs[4]);
-            respDTOs.add(respDTO);
+            logList.add(log);
         }
-        return respDTOs;
-    }
-
+        return logList;
     }
 
     // @Transactional

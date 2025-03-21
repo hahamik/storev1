@@ -8,14 +8,14 @@ import lombok.Data;
 public class LogResponse {
 
     @Data // getter, setter, toString 보유한 친구
-    public static class DTO {
+    public static class ListPage {
         private int id;
         private String name;
         private int qty;
         private int totalPrice;
         private String buyer;
 
-        public DTO(int id, String name, int qty, int totalPrice, String buyer) {
+        public ListPage(int id, String name, int qty, int totalPrice, String buyer) {
             this.id = id;
             this.name = name;
             this.qty = qty;
