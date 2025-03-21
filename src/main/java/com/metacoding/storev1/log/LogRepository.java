@@ -3,6 +3,7 @@ package com.metacoding.storev1.log;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.ssl.JksSslBundleProperties.Store;
@@ -19,19 +20,20 @@ public class LogRepository {
 
     }
 
-    public void findAllJoinStore() {
-        String q = "SELECT lt.id, st.name, lt.qty, lt.total_price, lt.buyer  FROM log_tb lt INNER JOIN store_tb st ON lt.store_id = st.id ORDER BY lt.id DESC";
+    // *로 하면 랜덤한 순서로 나옴
+    public List<LogResponse.DTO> findAllJoinStore() {
+        List<LogResponse.DTO> respDTOs = new ArrayList<>();
+        String q = "SELECT lt.id, st.name, lt.qty, lt.total_price, lt.buyer FROM log_tb lt INNER JOIN store_tb st ON lt.store_id = st.id";
         Query query = em.createNativeQuery(q);
         List<Object[]> obsList = (List<Object[]>) query.getResultList(); // Object[] -> ROW
 
         for (Object[] obs : obsList) {
-            System.out.print(obs[0] + " ");
-            System.out.print(obs[1] + " ");
-            System.out.print(obs[2] + " ");
-            System.out.print(obs[3] + " ");
-            System.out.print(obs[4] + " ");
-            System.out.println("=========");
+            LogResponse.DTO respDTO = new LogResponse.DTO(
+                    (int) obs[0], (String) obs[1], (int) obs[2], (int) obs[3], (String) obs[4]);
+            respDTOs.add(respDTO);
         }
+        return respDTOs;
+    }
 
     }
 
