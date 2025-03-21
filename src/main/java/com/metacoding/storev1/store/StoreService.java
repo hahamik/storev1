@@ -40,11 +40,15 @@ public class StoreService {
 
     @Transactional
     public void 상품수정(int id, String name, int stock, int price) {
+        // 1. 상품 조회
         Store store = storeRepository.findById(id);
-        System.out.println(" id : " + id + " name : " + name + " stock : " + stock + " price : " + price);
+
+        // 2. 없으면 예외처리
         if (store == null) {
             throw new RuntimeException("없는 상품입니다. 수정 불가");
         }
+
+        // 3. 상품수정
         storeRepository.update(id, name, stock, price);
     }
 }

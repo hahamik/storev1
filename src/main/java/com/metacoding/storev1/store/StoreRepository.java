@@ -17,7 +17,6 @@ public class StoreRepository {
         this.em = em;
     }
 
-    @Transactional
     public void save(String name, int stock, int price) {
         Query query = em.createNativeQuery("insert into store_tb(name, stock, price) values(?,?,?)");
         query.setParameter(1, name);
@@ -29,7 +28,11 @@ public class StoreRepository {
     public Store findById(int id) {
         Query query = em.createNativeQuery("select * from store_tb where id = ?", Store.class);
         query.setParameter(1, id);
-        return (Store) query.getSingleResult();
+        try {
+            return (Store) query.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public List<Store> findAll() {
@@ -44,7 +47,6 @@ public class StoreRepository {
         query.executeUpdate();
     }
 
-    @Transactional
     public void update(int id, String name, int stock, int price) {
         Query query = em.createNativeQuery("update store_tb SET  name = ? ,stock = ?, price = ? WHERE id = ?");
         query.setParameter(1, name);
