@@ -18,8 +18,8 @@ public class LogController {
 
     @GetMapping("/log/list")
     public String list(HttpServletRequest request) { // MVC
-        List<Log> logList = logService.구매목록();
-        request.setAttribute("models", logList);
+        List<LogResponse.ListPage> listPage = logService.구매목록();
+        request.setAttribute("models", listPage);
         return "log/list";
     }
 

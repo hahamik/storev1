@@ -23,10 +23,11 @@ public class LogRepository {
     // *로 하면 랜덤한 순서로 나옴
     public List<LogResponse.ListPage> findAllJoinStore() {
         List<LogResponse.ListPage> logList = new ArrayList<>();
-        String q = "SELECT lt.id, st.name, lt.qty, lt.total_price, lt.buyer FROM log_tb lt INNER JOIN store_tb st ON lt.store_id = st.id";
+        String q = "SELECT lt.id, st.name, lt.qty, lt.total_price, lt.buyer FROM log_tb lt INNER JOIN store_tb st ON lt.store_id = st.id ORDER BY lt.id DESC";
         Query query = em.createNativeQuery(q);
         List<Object[]> obsList = (List<Object[]>) query.getResultList(); // Object[] -> ROW
 
+        // Mapping 오브젝트의 책임
         // ObjectMapping OM
         for (Object[] obs : obsList) {
             LogResponse.ListPage log = new LogResponse.ListPage(

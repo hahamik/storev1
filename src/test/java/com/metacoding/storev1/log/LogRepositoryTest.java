@@ -1,9 +1,13 @@
 package com.metacoding.storev1.log;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+
+import com.metacoding.storev1.log.LogResponse.ListPage;
 
 @Import(LogRepository.class)
 @DataJpaTest // EM IOC 등록
@@ -16,9 +20,11 @@ public class LogRepositoryTest {
     private LogRepository logRepository;
 
     // test할 때만 언더바 사용함
-
     @Test
     public void findAllJoinStore_test() { // 매개변수에 아무것도 넣을 수 없음 -> 문법
-        logRepository.findAllJoinStore();
+        List<LogResponse.ListPage> logList = logRepository.findAllJoinStore();
+        for (ListPage listPage : logList) {
+            System.out.println(listPage);
+        }
     }
 }

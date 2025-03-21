@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.metacoding.storev1.log.LogResponse.ListPage;
+
 @Service
 public class LogService {
 
@@ -13,9 +15,8 @@ public class LogService {
         this.logRepository = logRepository;
     }
 
-    public List<Log> 구매목록() {
-        // logRepository.findAll();
-        return null;
+    public List<ListPage> 구매목록() {
+        return logRepository.findAllJoinStore();
     }
 
     // @Transactional
