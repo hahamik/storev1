@@ -3,6 +3,7 @@ package com.metacoding.storev1.store;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -16,6 +17,7 @@ public class StoreRepository {
         this.em = em;
     }
 
+    @Transactional
     public void save(String name, int stock, int price) {
         Query query = em.createNativeQuery("insert into store_tb(name, stock, price) values(?,?,?)");
         query.setParameter(1, name);
@@ -42,6 +44,7 @@ public class StoreRepository {
         query.executeUpdate();
     }
 
+    @Transactional
     public void update(int id, String name, int stock, int price) {
         Query query = em.createNativeQuery("update store_tb SET  name = ? ,stock = ?, price = ? WHERE id = ?");
         query.setParameter(1, name);
@@ -50,4 +53,5 @@ public class StoreRepository {
         query.setParameter(4, id);
         query.executeUpdate();
     }
+
 }
