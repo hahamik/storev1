@@ -2,11 +2,12 @@
 
 <section>
     <form action="/store/{{model.id}}/update" method="post">
-        <input type="text" name="name" value={{model.name}}><br>
-        <input type="text" name="stock"value={{model.stock}}><br>
-        <input type="text" name="price"value={{model.price}}><br>
-        <button type="submit">상품수정</button>
+        <input type="text" value="{{model.name}}" name="name"><br>
+        <input type="text" value="{{model.stock}}" name="stock"><br>
+        <input type="text" value="{{model.price}}" name="price"><br>
+        <button>상품수정</button>
     </form>
+    
 </section>
 
 </body>

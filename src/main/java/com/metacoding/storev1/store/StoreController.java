@@ -35,13 +35,15 @@ public class StoreController {
 
     @GetMapping("/store/{id}/update-form")
     public String updateForm(@PathVariable("id") int id, HttpServletRequest request) {
-        Store board = storeService.상세보기(id);
-        request.setAttribute("model", board);
+
+        request.setAttribute("model", storeService.상세보기(id));
         return "store/update-form";
     }
 
+    // 2번 : board 프로젝트의 BoardController 참고
     @PostMapping("/store/{id}/delete")
     public String delete(@PathVariable("id") int id) {
+
         storeService.상품삭제(id);
         return "redirect:/";
     }
@@ -54,17 +56,20 @@ public class StoreController {
     @PostMapping("/store/save")
     public String save(@RequestParam("name") String name, @RequestParam("stock") int stock,
             @RequestParam("price") int price) {
+
         storeService.상품등록(name, stock, price);
+
         return "redirect:/";
     }
 
     @PostMapping("/store/{id}/update")
-    public String update(
-            @PathVariable("id") int id,
+    public String update(@PathVariable("id") int id,
             @RequestParam("name") String name,
             @RequestParam("stock") int stock,
             @RequestParam("price") int price) {
+
         storeService.상품수정(id, name, stock, price);
+
         return "redirect:/store/" + id;
     }
 }
