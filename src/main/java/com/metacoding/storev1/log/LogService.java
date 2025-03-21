@@ -3,7 +3,6 @@ package com.metacoding.storev1.log;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class LogService {
@@ -15,7 +14,7 @@ public class LogService {
     }
 
     public List<Log> 구매목록() {
-        logRepository.findAll();
+        // logRepository.findAll();
         return null;
     }
 
